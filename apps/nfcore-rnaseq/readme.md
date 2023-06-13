@@ -10,7 +10,7 @@ For a single study, you can use the following steps to set up the environment an
 
 ### 1. Setup folders and copy data and reference files
 
-Prepare the following folders and files. If working on hybrid species with 2 reference files, you might want to merger them into one file.
+Prepare the following folders and files. If working on hybrid species with 2 reference files, you might want to merger them into one file. see the `merge.sh` for example bash scripts to do this. 
 
 ```bash
 mkdir fastq
