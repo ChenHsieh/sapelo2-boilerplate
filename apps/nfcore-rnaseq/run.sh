@@ -11,7 +11,10 @@
 #SBATCH --error=job_name.%j.err
 
 date
+
 cd $SLURM_SUBMIT_DIR
+
 ml Nextflow
+
 nextflow run nf-core/rnaseq -r 3.8.1 -name run_name --outdir results -profile singularity -params-file nf-params.json -resume 
 
