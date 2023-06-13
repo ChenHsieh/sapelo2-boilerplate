@@ -1,0 +1,12 @@
+sample,fastq_1,fastq_2,strandedness
+callus,./fastq/callus_R1.fq.gz,./fastq/callus_R2.fq.gz,unstranded
+bud,./fastq/bud_R1.fq.gz,./fastq/bud_R2.fq.gz,unstranded
+shoottip,./fastq/shoottip_R1.fq.gz,./fastq/shoottip_R2.fq.gz,unstranded
+leafnew,./fastq/leafnew_R1.fq.gz,./fastq/leafnew_R2.fq.gz,unstranded
+leafexp,./fastq/leafexp_R1.fq.gz,./fastq/leafexp_R2.fq.gz,unstranded
+leafmat,./fastq/leafmat_R1.fq.gz,./fastq/leafmat_R2.fq.gz,unstranded
+barkpri,./fastq/barkpri_R1.fq.gz,./fastq/barkpri_R2.fq.gz,unstranded
+debarkedpri,./fastq/debarkedpri_R1.fq.gz,./fastq/debarkedpri_R2.fq.gz,unstranded
+barksec,./fastq/barksec_R1.fq.gz,./fastq/barksec_R2.fq.gz,unstranded
+xylem,./fastq/xylem_R1.fq.gz,./fastq/xylem_R2.fq.gz,unstranded
+roottip,./fastq/roottip_R1.fq.gz,./fastq/roottip_R2.fq.gz,unstranded

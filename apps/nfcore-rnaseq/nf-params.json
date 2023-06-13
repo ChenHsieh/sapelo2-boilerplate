@@ -1,0 +1,14 @@
+{
+    "input": ".\/input.csv",
+    "outdir": ".\/results",
+    "email": "youremail@uga.edu",
+    "multiqc_title": "a_cool_title",
+    "fasta": ".\/ref\/genome.fa",
+    "gff": ".\/ref\/annotation.gff",
+    "gtf_extra_attributes": "Name",
+    "featurecounts_group_type": "",
+    "featurecounts_feature_type": "",
+    "skip_biotype_qc": true,
+    "pseudo_aligner": "salmon",
+    "aligner": "star_salmon"
+}
