@@ -25,7 +25,7 @@ cp /genome_annotation.gff ref/annotation.gff # if using phytozome, use the *gene
 
 ### 2. Setup the nfcore/rnaseq environment
 
-Here I provided example `input.csv` and `nf-params.json` files. You must modify the `input.csv` to point to the correct fastq files. I suggest go throught the latest version of [nfcore/rnaseq](https://nf-co.re/rnaseq) to see if there are any changes to the `nf-params.json` file. Things that need a little attention are the following lines in the `nf-params.json` file due to the format of the phytozome annotation file, please adjust accordingly:
+Here I provided example `input.csv` and `nf-params.json` files. You must modify the `input.csv` to point to the correct fastq files. I suggest go through the latest version of [nfcore/rnaseq](https://nf-co.re/rnaseq) to see if there are any changes to the `nf-params.json` file. Things that need a little attention are the following lines in the `nf-params.json` file due to the format of the phytozome annotation file, please adjust accordingly:
 
 ```
 "gtf_extra_attributes": "Name",
@@ -48,7 +48,7 @@ sbatch run.sh
 
 ## FAQ or troubleshooting
 
-1. Whenever a run failed and you want to resubmit it, make sure to change the run name in the `run.sh` or it will not run. 
+1. Whenever a run failed and you want to submit it again, make sure to change the run name in the `run.sh` or it will not run. 
 
 2. Sometimes it won't work due to unknown reason. After consulting with GACRC associates, they suggest just change a directory and run it again. 
 
