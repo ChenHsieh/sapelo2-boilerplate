@@ -2,9 +2,9 @@
 #SBATCH -J mcscanx_h1
 #SBATCH --partition batch
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=32
+#SBATCH --cpus-per-task=1
 #SBATCH --time=168:00:00
-#SBATCH --mem=64gb
+#SBATCH --mem=1gb
 #SBATCH --mail-user=youremail@uga.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --output=mcscanx_h1.%j.out
