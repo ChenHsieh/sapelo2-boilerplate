@@ -1,0 +1,31 @@
+# Snakefile
+
+# Load configuration parameters
+configfile: "config.yaml"
+
+# Rule all as the first rule
+rule all:
+    input:
+        "out.txt"
+
+# Rule for downloading audio
+rule download_audio:
+    output:
+        audio = "out.mp3"
+    params:
+        youtube_url = config.get("youtube_url", "https://www.youtube.com/watch?v=0Ho1OJaZ8lc&t=368s")  # Default value
+    shell:
+        """
+        yt-dlp -x --audio-format mp3 -o '{output.audio}' {params.youtube_url}
+        """
+
+# Rule for transcribing audio
+rule transcribe_audio:
+    input:
+        audio_file = rules.download_audio.output.audio
+    output:
+        transcript = "out.txt"
+    shell:
+        """
+        whisper --model large -o out -- '{input.audio_file}'
+        """
