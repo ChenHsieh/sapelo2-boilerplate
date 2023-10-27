@@ -9,3 +9,5 @@ your peptide of interest would be in fasta format in `transcripts.fasta.transdec
 the database (reference peptide files from a certain species) peptide fasta file name should be `{species_name}.protein_primaryTranscriptOnly.fa.gz`
 
 modify the names or parameters as needed
+
+output will be generated in `best_hits.csv`
