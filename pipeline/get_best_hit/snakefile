@@ -1,0 +1,51 @@
+# Rule all as the first rule
+rule all:
+    input:
+        "best_hits.csv"
+
+# Decompress the genome files
+rule decompress_genomes:
+    input:
+        "{species}.protein_primaryTranscriptOnly.fa.gz"
+    output:
+        "{species}.fa"
+    shell:
+        "gunzip -c {input} > {output}"
+
+# Create DIAMOND database
+rule make_diamond_db:
+    input:
+        "{species}.fa"
+    output:
+        "{species}.dmnd"
+    shell:
+        "diamond makedb --in {input} -d {output}"
+
+# Run DIAMOND BLAST
+rule run_diamond:
+    input:
+        db="{species}.dmnd",
+        query="transcripts.fasta.transdecoder.pep"
+    output:
+        "diamond_results_{species}.tsv"
+    shell:
+        "diamond blastp --query {input.query} --db {input.db} --out {output} --outfmt 6"
+
+# Extract best hits and create a CSV
+rule extract_best_hits:
+    input:
+        arabidopsis="diamond_results_Arabidopsis.tsv",
+        oryza="diamond_results_Oryza.tsv",
+        glycine="diamond_results_Glycine.tsv",
+        medicago="diamond_results_Medicago.tsv"
+    output:
+        "best_hits.csv"
+    shell:
+        """ 
+        python extract_best_hits.py \
+            --arabidopsis {input.arabidopsis} \
+            --oryza {input.oryza} \
+            --glycine {input.glycine} \
+            --medicago {input.medicago} \
+            --output {output}
+        """
