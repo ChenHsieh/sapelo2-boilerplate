@@ -1,4 +1,4 @@
-# sapelo2 
+# running trinotate on sapelo2 
 
 the sequence databases described [here](https://github.com/Trinotate/Trinotate/wiki/Software-installation-and-data-required#2-sequence-databases-required) can be reused if not outdated. GACRC have the required database here after loading the module:
 
@@ -20,3 +20,5 @@ user might need to copy the database files and the boilerplate file to their own
 1. when downloading and creating the required databases, the server might be unreachable, just ask the GACRC for help
 
 2. sometimes the program have stopped due to error but the job would not end, users need to check the .err file to see what happened
+
+3. normal output from the program would be stored in the error output file
