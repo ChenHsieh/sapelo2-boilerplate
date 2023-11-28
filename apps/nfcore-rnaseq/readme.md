@@ -56,4 +56,5 @@ sbatch run.sh
 
 4. Sometimes it won't work because the `NextFlow` on the sapelo2 is too old. Just send a ticket to GACRC to ask for an update.
 
-5. Sometimes it won't work because the latest `nfcore/rnaseq` introduced some new issues. Just try to use a previous version of the pipeline.
+5. Sometimes it won't work because the latest `nfcore/rnaseq` introduced some new issues. Just try to use a previous version of the pipeline or clean the cache with `rm -rf ~/.nextflow`
+
