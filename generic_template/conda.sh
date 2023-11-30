@@ -10,9 +10,8 @@
 #SBATCH --output=dis.%j.out
 #SBATCH --error=dis.%j.err    
 
-ml Anaconda3
-conda init bash
-source ~/.bashrc
+module load Miniconda3/4.10.3
+eval "$(conda shell.bash hook)"
 conda activate env_name
 
 cd $SLURM_SUBMIT_DIR
