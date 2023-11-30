@@ -9,3 +9,9 @@ quickly check the usage of the node your job is running on
 ```bash
 ssh -t {node} htop -u {myID}
 ```
+
+archive folders for backup or transfer
+
+```bash
+tar -czvf mydata-archive.tar.gz mydata
+```
