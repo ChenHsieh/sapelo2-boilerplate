@@ -1,0 +1,129 @@
+site_name: Sapelo2 Boilerplate
+site_description: Battle-tested sbatch scripts, Claude Code ruleset, and pipelines for UGA GACRC Sapelo2.
+site_url: https://chenhsieh.github.io/sapelo2-boilerplate/
+repo_url: https://github.com/ChenHsieh/sapelo2-boilerplate
+repo_name: ChenHsieh/sapelo2-boilerplate
+edit_uri: edit/main/docs/
+copyright: Chen Hsieh · content kept date-stamped where facts rot fast.
+
+theme:
+  name: material
+  font:
+    text: Inter
+    code: JetBrains Mono
+  icon:
+    repo: fontawesome/brands/github
+    logo: material/server-network
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.tracking
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.action.edit
+    - content.action.view
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: date
+      fallback_to_build_date: true
+  - social:
+      cards_layout_options:
+        background_color: "#311b92"
+        color: "#ffffff"
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      permalink_title: Link to this section
+  - pymdownx.details
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.keys
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path:
+        - .
+      check_paths: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ChenHsieh/sapelo2-boilerplate
+      name: GitHub repository
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Claude Code:
+      - Overview: claude-code/index.md
+      - Ruleset (CLAUDE.md): claude-code/rules.md
+  - Recipes:
+      - Overview: recipes/index.md
+      - alphaFold: recipes/alphafold.md
+      - BUSCO: recipes/busco.md
+      - MCScanX: recipes/mcscanx.md
+      - nf-core/rnaseq: recipes/nfcore-rnaseq.md
+      - OmegaFold: recipes/omega.md
+      - OrthoFinder: recipes/orthofinder.md
+      - SpeedPPI: recipes/speedppi.md
+      - Trinotate: recipes/trinotate.md
+  - Pipelines:
+      - Overview: pipelines/index.md
+      - yt_whisper: pipelines/yt-whisper.md
+      - get_best_hit: pipelines/get-best-hit.md
+  - Reference:
+      - sbatch templates: reference/sbatch.md

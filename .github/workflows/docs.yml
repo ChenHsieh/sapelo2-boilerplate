@@ -1,0 +1,48 @@
+name: Deploy MkDocs to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - '.github/workflows/docs.yml'
+      - 'claude-code/**.md'
+      - 'apps/**/README.md'
+      - 'pipeline/**/README.md'
+      - 'README.md'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install system deps for social cards
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcairo2-dev libfreetype6-dev libffi-dev libjpeg-dev libpng-dev libz-dev
+
+      - name: Install MkDocs + plugins
+        run: |
+          pip install \
+            "mkdocs-material[imaging]" \
+            mkdocs-git-revision-date-localized-plugin
+
+      - name: Build & deploy
+        run: mkdocs gh-deploy --force --clean

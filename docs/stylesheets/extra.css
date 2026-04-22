@@ -1,0 +1,31 @@
+/* Tighten card spacing on landing page */
+.md-typeset .grid.cards > :is(ul, ol) > li,
+.md-typeset .grid > .card {
+  border-radius: 12px;
+  transition: border-color 200ms ease, transform 200ms ease;
+}
+
+.md-typeset .grid.cards > :is(ul, ol) > li:hover,
+.md-typeset .grid > .card:hover {
+  border-color: var(--md-accent-fg-color);
+  transform: translateY(-2px);
+}
+
+/* Style the mermaid diagram container */
+.md-typeset .mermaid {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+/* Slightly larger hero tagline on the home page */
+:root {
+  --md-text-font: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --md-code-font: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+}
+
+/* Accent QOS / resource tables with subtle highlight */
+.md-typeset table:not([class]) thead {
+  background: linear-gradient(90deg,
+    rgba(94, 53, 177, 0.12),
+    rgba(255, 193, 7, 0.10));
+}

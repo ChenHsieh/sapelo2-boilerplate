@@ -1,0 +1,1 @@
+--8<-- "pipeline/yt_whisper/README.md"

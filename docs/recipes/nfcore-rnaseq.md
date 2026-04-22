@@ -1,0 +1,1 @@
+--8<-- "apps/nfcore-rnaseq/README.md"
