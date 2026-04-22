@@ -263,17 +263,20 @@
   
   
   
-    <li class="md-tabs__item">
-      <a href="getting-started/" class="md-tabs__link">
-        
+    
+    
+      <li class="md-tabs__item">
+        <a href="getting-started/" class="md-tabs__link">
+          
   
   
     
   
   Getting started
 
-      </a>
-    </li>
+        </a>
+      </li>
+    
   
 
       
@@ -526,9 +529,34 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="getting-started/" class="md-nav__link">
+    
+    
+      
         
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="getting-started/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -542,7 +570,59 @@
   
   
 
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting-started/advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tips & tricks
+  
+
+    
+  </span>
+  
+  
+
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -558,6 +638,8 @@
       
         
           
+        
+      
         
       
         
@@ -614,6 +696,34 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="claude-code/advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tips & tricks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -942,8 +1052,10 @@ UGA's HPC cluster. written from things that broke first.
 
 <h2 id="start-here">Start here<a class="headerlink" href="#start-here" title="Link to this section">&para;</a></h2>
 <ul>
-<li><a href="getting-started/">Getting started</a> — Sapelo2 from zero: SSH, storage, <code>interact</code>, sbatch.</li>
-<li><a href="claude-code/">Claude Code setup</a> — the <code>CLAUDE.md</code> ruleset I run, and why.</li>
+<li><a href="getting-started/">Getting started</a> — basics: login etiquette, storage, <code>interact</code>, sbatch.</li>
+<li><a href="getting-started/advanced/">Getting started — tips &amp; tricks</a> — arrays, <code>seff</code> tuning, <code>/lscratch</code>, shell setup.</li>
+<li><a href="claude-code/">Claude Code setup</a> — the <code>CLAUDE.md</code> ruleset, and why each rule exists.</li>
+<li><a href="claude-code/advanced/">Claude Code — tips &amp; tricks</a> — session survival, frozen-terminal recovery, statusline, effort levels.</li>
 <li><a href="claude-code/rules/">CLAUDE.md ruleset</a> — the raw rules.</li>
 <li><a href="reference/sbatch/">sbatch templates</a> · <a href="reference/storage/">Storage topology</a></li>
 </ul>
@@ -956,14 +1068,13 @@ UGA's HPC cluster. written from things that broke first.
 <p>Rationale + failure modes: <a href="claude-code/rules/">the ruleset</a>.</p>
 <h2 id="session-architecture">Session architecture<a class="headerlink" href="#session-architecture" title="Link to this section">&para;</a></h2>
 <pre class="mermaid"><code>flowchart LR
-    L[local] --&gt;|ssh + vpn| G[login node]
-    G --&gt; T[tmux]
-    T --&gt; I[interact]
-    I --&gt; C[compute node]
+    L[local] --&gt;|ssh&lt;br/&gt;&lt;small&gt;+ vpn if off-campus&lt;/small&gt;| G[login node]
+    G --&gt;|interact| C[compute node]
     C --&gt; K[claude]
-    G -.-&gt;|sbatch| B[(batch queue)]
-    B --&gt; H[compute nodes]</code></pre>
-<p>Claude Code's bash runs wherever the shell that launched it runs. Login node = your commands hit the login node. <code>interact</code> first, then <code>claude</code>.</p>
+    K -.-&gt;|sbatch| H[batch compute nodes]</code></pre>
+<p>Claude Code's bash runs wherever the shell that launched it runs. Start <code>interact</code> with enough resources for the full session — long time, large memory, GPU if compiling something interactively — then <code>claude</code> from inside.</p>
+<p>No venv activation needed before <code>claude</code>; envs get activated inline in bash calls or in sbatch headers. Claude itself submits and manages <code>sbatch</code> jobs, tuning resources against <code>sinfo</code> in real time.</p>
+<p><code>tmux</code> is optional — useful for splits or covering SSH drops (start it on the login node <em>before</em> <code>interact</code>), but it won't save a Claude session from <code>interact</code> walltime expiry.</p>
 <h2 id="whats-universal-vs-cluster-specific">What's universal vs cluster-specific<a class="headerlink" href="#whats-universal-vs-cluster-specific" title="Link to this section">&para;</a></h2>
 <p>Most of this is GACRC-specific (partitions, QOS, module names, <code>/work/&lt;lab&gt;</code>). Portable parts:</p>
 <ul>
@@ -998,7 +1109,7 @@ UGA's HPC cluster. written from things that broke first.
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 22, 2026 01:36:10 UTC">April 22, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 22, 2026 02:07:05 UTC">April 22, 2026</span>
   </span>
 
     
@@ -1050,13 +1161,13 @@ UGA's HPC cluster. written from things that broke first.
         
         
           
-          <a href="getting-started/" class="md-footer__link md-footer__link--next" aria-label="Next: Getting started">
+          <a href="getting-started/" class="md-footer__link md-footer__link--next" aria-label="Next: Basics">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Getting started
+                Basics
               </div>
             </div>
             <div class="md-footer__button md-icon">

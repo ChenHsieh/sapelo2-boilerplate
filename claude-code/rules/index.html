@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://chenhsieh.github.io/sapelo2-boilerplate/claude-code/rules/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../advanced/">
       
       
         <link rel="next" href="../../recipes/">
@@ -263,17 +263,20 @@
   
   
   
-    <li class="md-tabs__item">
-      <a href="../../getting-started/" class="md-tabs__link">
-        
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/" class="md-tabs__link">
+          
   
   
     
   
   Getting started
 
-      </a>
-    </li>
+        </a>
+      </li>
+    
   
 
       
@@ -439,9 +442,34 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../getting-started/" class="md-nav__link">
+    
+    
+      
         
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../getting-started/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -455,7 +483,59 @@
   
   
 
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tips & tricks
+  
+
+    
+  </span>
+  
+  
+
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -473,6 +553,8 @@
       
         
           
+        
+      
         
       
         
@@ -532,6 +614,34 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tips & tricks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -779,10 +889,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#reconnecting-after-a-drop" class="md-nav__link">
+  <a href="#reconnecting-after-an-ssh-drop" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Reconnecting after a drop
+        Reconnecting after an SSH drop
       
     </span>
   </a>
@@ -1367,10 +1477,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#reconnecting-after-a-drop" class="md-nav__link">
+  <a href="#reconnecting-after-an-ssh-drop" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Reconnecting after a drop
+        Reconnecting after an SSH drop
       
     </span>
   </a>
@@ -2042,53 +2152,25 @@ After test runs: <code>seff &lt;jobID&gt;</code> to check actual memory/CPU usag
 </span></code></pre></div></p>
 <hr />
 <h2 id="session-architecture-recovery">Session architecture &amp; recovery<a class="headerlink" href="#session-architecture-recovery" title="Link to this section">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Local machine
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  └── VPN
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>       └── SSH → Sapelo2 login node
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>                  └── tmux (survives SSH/VPN drops)
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>                       └── interact (srun --pty) → compute node
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>                            └── source activate &lt;env&gt;
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>                                 └── claude
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>local  →  ssh  →  login node  →  interact  →  compute node  →  claude
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>                                                                  │
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>                                                                  └─ sbatch  →  batch compute
 </span></code></pre></div>
-<p><strong>What survives what:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Layer</th>
-<th>Survives SSH/VPN drop</th>
-<th>Survives walltime</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>tmux</code> on login node</td>
-<td>✅ Yes</td>
-<td>✅ Indefinitely</td>
-</tr>
-<tr>
-<td><code>interact</code> job</td>
-<td>❌ pty hangup kills it</td>
-<td>❌ Dies at walltime</td>
-</tr>
-<tr>
-<td><code>tmux</code> inside <code>interact</code></td>
-<td>✅ Within job</td>
-<td>❌ Dies with job</td>
-</tr>
-<tr>
-<td>Claude session</td>
-<td>❌ Dies with <code>interact</code></td>
-<td>❌ Dies with <code>interact</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Claude session lifetime = <code>interact</code> walltime.</strong> Plan scope accordingly. Long jobs belong in <code>sbatch</code>, not in a live Claude session.</p>
-<h3 id="reconnecting-after-a-drop">Reconnecting after a drop<a class="headerlink" href="#reconnecting-after-a-drop" title="Link to this section">&para;</a></h3>
+<ul>
+<li>VPN: only if off-campus.</li>
+<li><code>interact</code>: request resources for the whole session — long time, large memory, GPU if compiling interactively.</li>
+<li>No venv activation needed before <code>claude</code>; envs get activated inline in bash calls or in sbatch headers.</li>
+<li>Claude launches and manages <code>sbatch</code> jobs from inside the interact session, tuning resources against <code>sinfo</code> in real time.</li>
+<li><code>tmux</code> is optional. Useful for splits or covering SSH drops (start it on the login node <em>before</em> <code>interact</code>), but won't save a Claude session from <code>interact</code> walltime expiry.</li>
+</ul>
+<p><strong>Claude session lifetime = <code>interact</code> walltime.</strong> Pick walltime covering what you want to do. Long jobs belong in <code>sbatch</code>, not a live Claude session.</p>
+<h3 id="reconnecting-after-an-ssh-drop">Reconnecting after an SSH drop<a class="headerlink" href="#reconnecting-after-an-ssh-drop" title="Link to this section">&para;</a></h3>
+<p>Only works if you started <code>tmux</code> on the login node <em>before</em> <code>interact</code>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ssh<span class="w"> </span>sapelo2
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>tmux<span class="w"> </span>ls
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>tmux<span class="w"> </span>attach<span class="w"> </span>-t<span class="w"> </span>&lt;session&gt;
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>squeue<span class="w"> </span>-j<span class="w"> </span>&lt;JOBID&gt;<span class="w">          </span><span class="c1"># check if the interact job is still alive</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>tmux<span class="w"> </span>attach<span class="w"> </span>-t<span class="w"> </span>&lt;session&gt;
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>squeue<span class="w"> </span>-j<span class="w"> </span>&lt;JOBID&gt;<span class="w">          </span><span class="c1"># confirm the interact job is still alive</span>
 </span></code></pre></div>
+<p>Otherwise the pty hangup killed the interact job when the SSH connection died — start over.</p>
 <h3 id="if-the-terminal-freezes-sock-hopping-unresponsive">If the terminal freezes ("sock-hopping" / unresponsive)<a class="headerlink" href="#if-the-terminal-freezes-sock-hopping-unresponsive" title="Link to this section">&para;</a></h3>
 <p>A subprocess may hang and grab the pty. From a fresh SSH session:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>tmux<span class="w"> </span>attach<span class="w"> </span>-t<span class="w"> </span>&lt;session&gt;<span class="w">                              </span><span class="c1"># try plain attach</span>
@@ -2367,7 +2449,7 @@ tools, and per-step resource estimates. Example:</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview">
+          <a href="../advanced/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Tips &amp; tricks">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2377,7 +2459,7 @@ tools, and per-step resource estimates. Example:</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Overview
+                Tips & tricks
               </div>
             </div>
           </a>
