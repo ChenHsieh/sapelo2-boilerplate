@@ -13,8 +13,10 @@ UGA's HPC cluster. written from things that broke first.
 
 ## Start here
 
-- [Getting started](getting-started.md) — Sapelo2 from zero: SSH, storage, `interact`, sbatch.
-- [Claude Code setup](claude-code/index.md) — the `CLAUDE.md` ruleset I run, and why.
+- [Getting started](getting-started/index.md) — basics: login etiquette, storage, `interact`, sbatch.
+- [Getting started — tips & tricks](getting-started/advanced.md) — arrays, `seff` tuning, `/lscratch`, shell setup.
+- [Claude Code setup](claude-code/index.md) — the `CLAUDE.md` ruleset, and why each rule exists.
+- [Claude Code — tips & tricks](claude-code/advanced.md) — session survival, frozen-terminal recovery, statusline, effort levels.
 - [CLAUDE.md ruleset](claude-code/rules.md) — the raw rules.
 - [sbatch templates](reference/sbatch.md) · [Storage topology](reference/storage.md)
 
@@ -30,16 +32,17 @@ Rationale + failure modes: [the ruleset](claude-code/rules.md).
 
 ```mermaid
 flowchart LR
-    L[local] -->|ssh + vpn| G[login node]
-    G --> T[tmux]
-    T --> I[interact]
-    I --> C[compute node]
+    L[local] -->|ssh<br/><small>+ vpn if off-campus</small>| G[login node]
+    G -->|interact| C[compute node]
     C --> K[claude]
-    G -.->|sbatch| B[(batch queue)]
-    B --> H[compute nodes]
+    K -.->|sbatch| H[batch compute nodes]
 ```
 
-Claude Code's bash runs wherever the shell that launched it runs. Login node = your commands hit the login node. `interact` first, then `claude`.
+Claude Code's bash runs wherever the shell that launched it runs. Start `interact` with enough resources for the full session — long time, large memory, GPU if compiling something interactively — then `claude` from inside.
+
+No venv activation needed before `claude`; envs get activated inline in bash calls or in sbatch headers. Claude itself submits and manages `sbatch` jobs, tuning resources against `sinfo` in real time.
+
+`tmux` is optional — useful for splits or covering SSH drops (start it on the login node *before* `interact`), but it won't save a Claude session from `interact` walltime expiry.
 
 ## What's universal vs cluster-specific
 

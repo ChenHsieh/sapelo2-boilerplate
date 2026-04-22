@@ -7,7 +7,7 @@ on:
       - 'docs/**'
       - 'mkdocs.yml'
       - '.github/workflows/docs.yml'
-      - 'claude-code/**.md'
+      - 'claude-code/**'
       - 'apps/**/README.md'
       - 'pipeline/**/README.md'
       - 'generic_template/**'

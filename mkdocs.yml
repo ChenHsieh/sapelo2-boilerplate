@@ -106,9 +106,12 @@ extra:
 
 nav:
   - Home: index.md
-  - Getting started: getting-started.md
+  - Getting started:
+      - Basics: getting-started/index.md
+      - Tips & tricks: getting-started/advanced.md
   - Claude Code:
-      - Overview: claude-code/index.md
+      - Setup: claude-code/index.md
+      - Tips & tricks: claude-code/advanced.md
       - Ruleset (CLAUDE.md): claude-code/rules.md
   - Recipes: recipes/index.md
   - Pipelines: pipelines/index.md

@@ -275,34 +275,30 @@ export ANTHROPIC_API_KEY=sk-ant-...
 ## Session architecture & recovery
 
 ```
-Local machine
-  └── VPN
-       └── SSH → Sapelo2 login node
-                  └── tmux (survives SSH/VPN drops)
-                       └── interact (srun --pty) → compute node
-                            └── source activate <env>
-                                 └── claude
+local  →  ssh  →  login node  →  interact  →  compute node  →  claude
+                                                                  │
+                                                                  └─ sbatch  →  batch compute
 ```
 
-**What survives what:**
+- VPN: only if off-campus.
+- `interact`: request resources for the whole session — long time, large memory, GPU if compiling interactively.
+- No venv activation needed before `claude`; envs get activated inline in bash calls or in sbatch headers.
+- Claude launches and manages `sbatch` jobs from inside the interact session, tuning resources against `sinfo` in real time.
+- `tmux` is optional. Useful for splits or covering SSH drops (start it on the login node *before* `interact`), but won't save a Claude session from `interact` walltime expiry.
 
-| Layer | Survives SSH/VPN drop | Survives walltime |
-|---|---|---|
-| `tmux` on login node | ✅ Yes | ✅ Indefinitely |
-| `interact` job | ❌ pty hangup kills it | ❌ Dies at walltime |
-| `tmux` inside `interact` | ✅ Within job | ❌ Dies with job |
-| Claude session | ❌ Dies with `interact` | ❌ Dies with `interact` |
+**Claude session lifetime = `interact` walltime.** Pick walltime covering what you want to do. Long jobs belong in `sbatch`, not a live Claude session.
 
-**Claude session lifetime = `interact` walltime.** Plan scope accordingly. Long jobs belong in `sbatch`, not in a live Claude session.
+### Reconnecting after an SSH drop
 
-### Reconnecting after a drop
+Only works if you started `tmux` on the login node *before* `interact`:
 
 ```bash
 ssh sapelo2
-tmux ls
 tmux attach -t <session>
-squeue -j <JOBID>          # check if the interact job is still alive
+squeue -j <JOBID>          # confirm the interact job is still alive
 ```
+
+Otherwise the pty hangup killed the interact job when the SSH connection died — start over.
 
 ### If the terminal freezes ("sock-hopping" / unresponsive)
 
