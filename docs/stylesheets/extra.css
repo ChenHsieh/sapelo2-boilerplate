@@ -1,101 +1,22 @@
-/* ─── Hero ASCII banner ─────────────────────────────────────── */
+/* Plain ASCII hero — monospace, no gradient */
 .hero-ascii {
-  font-family: var(--md-code-font, "JetBrains Mono", ui-monospace, monospace);
+  font-family: var(--md-code-font, ui-monospace, monospace);
   white-space: pre;
   line-height: 1.0;
-  font-size: clamp(0.42rem, 1.15vw, 0.82rem);
+  font-size: clamp(0.38rem, 1vw, 0.75rem);
   overflow-x: auto;
-  margin: 2rem 0 1rem;
-  text-align: center;
-  padding: 1.25rem 0.5rem;
-  background: linear-gradient(135deg,
-    rgba(94, 53, 177, 0.10),
-    rgba(255, 193, 7, 0.08));
-  border-radius: 14px;
-  border: 1px solid var(--md-default-fg-color--lightest);
+  margin: 1.5rem 0 0.5rem;
+  padding: 0;
+  color: var(--md-default-fg-color);
   user-select: none;
 }
-.hero-ascii .hero-grad {
-  background: linear-gradient(90deg, #5e35b1 0%, #7e57c2 40%, #ffc107 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-weight: 400;
-}
-.hero-ascii .hero-sub {
-  color: var(--md-default-fg-color--light);
+
+.hero-sub {
+  opacity: 0.6;
   font-size: 0.9em;
-  letter-spacing: 0.15em;
-  opacity: 0.85;
-}
-.hero-tag {
-  font-size: 1.1rem;
-  opacity: 0.85;
-  text-align: center;
-  margin: 0.5rem auto 1rem;
-  max-width: 52rem;
-}
-.hero-badges {
-  text-align: center;
-  margin: 0.5rem 0 2rem;
-}
-.hero-badges img {
-  vertical-align: middle;
-  margin: 0.2rem 0.15rem;
 }
 
-/* ─── Grid cards polish ─────────────────────────────────────── */
-.md-typeset .grid.cards > :is(ul, ol) > li,
-.md-typeset .grid > .card {
-  border-radius: 12px;
-  transition: border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
-}
-.md-typeset .grid.cards > :is(ul, ol) > li:hover,
-.md-typeset .grid > .card:hover {
-  border-color: var(--md-accent-fg-color);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(94, 53, 177, 0.12);
-}
-
-/* ─── Mermaid diagrams ──────────────────────────────────────── */
+/* Subtle mermaid margin */
 .md-typeset .mermaid {
-  text-align: center;
-  margin: 1.5rem 0;
-}
-
-/* ─── Resource pill row (on recipe pages) ───────────────────── */
-.resource-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin: 0.75rem 0 1.5rem;
-  align-items: center;
-}
-.resource-pills img {
-  margin: 0 !important;
-}
-
-/* ─── Typography ────────────────────────────────────────────── */
-:root {
-  --md-text-font: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  --md-code-font: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
-}
-
-/* ─── Table header stripe ──────────────────────────────────── */
-.md-typeset table:not([class]) thead {
-  background: linear-gradient(90deg,
-    rgba(94, 53, 177, 0.12),
-    rgba(255, 193, 7, 0.10));
-}
-
-/* ─── 404 page flourish ────────────────────────────────────── */
-.purged-ascii {
-  font-family: var(--md-code-font);
-  white-space: pre;
-  line-height: 1.1;
-  font-size: 0.85rem;
-  color: var(--md-default-fg-color--light);
-  text-align: center;
-  margin: 2rem auto;
-  opacity: 0.8;
+  margin: 1rem 0;
 }

@@ -9,26 +9,25 @@ copyright: Chen Hsieh · content kept date-stamped where facts rot fast.
 theme:
   name: material
   font:
-    text: Inter
-    code: JetBrains Mono
+    text: IBM Plex Sans
+    code: IBM Plex Mono
   icon:
     repo: fontawesome/brands/github
-    logo: material/server-network
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: deep purple
-      accent: amber
+      primary: black
+      accent: black
       toggle:
         icon: material/weather-night
-        name: Switch to dark mode
+        name: Dark
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: deep purple
-      accent: amber
+      primary: black
+      accent: white
       toggle:
         icon: material/weather-sunny
-        name: Switch to light mode
+        name: Light
   features:
     - navigation.tabs
     - navigation.sections
@@ -54,7 +53,7 @@ plugins:
       fallback_to_build_date: true
   - social:
       cards_layout_options:
-        background_color: "#311b92"
+        background_color: "#111111"
         color: "#ffffff"
 
 markdown_extensions:

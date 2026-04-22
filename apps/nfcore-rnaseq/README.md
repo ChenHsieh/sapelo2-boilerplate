@@ -1,9 +1,6 @@
 # nf-core/rnaseq on Sapelo2
 
-![CPUs](https://img.shields.io/badge/CPUs-32-2962ff)
-![Memory](https://img.shields.io/badge/memory-190G-2e7d32)
-![Time](https://img.shields.io/badge/time-124h-ef6c00)
-![Partition](https://img.shields.io/badge/partition-batch-616161)
+`32 CPU · 190 G · 124 h · batch`
 
 nfcore/rnaseq is a bioinformatics analysis pipeline used for RNA sequencing data. It updates fast — check the official release frequently.
 

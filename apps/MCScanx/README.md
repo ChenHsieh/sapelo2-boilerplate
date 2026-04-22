@@ -1,9 +1,6 @@
 # MCScanX on Sapelo2
 
-![CPUs](https://img.shields.io/badge/CPUs-1-2962ff)
-![Memory](https://img.shields.io/badge/memory-1G-2e7d32)
-![Time](https://img.shields.io/badge/time-168h-ef6c00)
-![Partition](https://img.shields.io/badge/partition-batch-616161)
+`1 CPU · 1 G · 168 h · batch`
 
 ## Usage
 

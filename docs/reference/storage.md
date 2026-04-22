@@ -25,16 +25,6 @@ flowchart TB
     scratch1 -.-> scratch2
     work1 -.-> work2
     project1 -.-x projX
-
-    style home1 fill:#ede7f6,stroke:#5e35b1,color:#000
-    style home2 fill:#ede7f6,stroke:#5e35b1,color:#000
-    style scratch1 fill:#e8f5e9,stroke:#2e7d32,color:#000
-    style scratch2 fill:#e8f5e9,stroke:#2e7d32,color:#000
-    style work1 fill:#fff3e0,stroke:#ef6c00,color:#000
-    style work2 fill:#fff3e0,stroke:#ef6c00,color:#000
-    style project1 fill:#e3f2fd,stroke:#1565c0,color:#000
-    style projX fill:#ffebee,stroke:#c62828,color:#000
-    style lscratch fill:#fce4ec,stroke:#ad1457,color:#000
 ```
 
 ## Quick reference

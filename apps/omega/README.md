@@ -1,10 +1,6 @@
 # OmegaFold on Sapelo2
 
-![GPU](https://img.shields.io/badge/GPU-A100-5e35b1)
-![CPUs](https://img.shields.io/badge/CPUs-32-2962ff)
-![Memory](https://img.shields.io/badge/memory-180G-2e7d32)
-![Time](https://img.shields.io/badge/time-30d-ef6c00)
-![Partition](https://img.shields.io/badge/partition-gpu__30d__p-616161)
+`A100 · 32 CPU · 180 G · 30 d · gpu_30d_p`
 
 Protein structure prediction from single sequence (no MSA). GPU-bound.
 

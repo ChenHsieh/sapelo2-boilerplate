@@ -1,13 +1,8 @@
 # sapelo2-boilerplate
 
-[![Docs site](https://img.shields.io/badge/docs-live-5e35b1?logo=readthedocs&logoColor=white)](https://chenhsieh.github.io/sapelo2-boilerplate/)
-[![Deploy docs](https://github.com/ChenHsieh/sapelo2-boilerplate/actions/workflows/docs.yml/badge.svg)](https://github.com/ChenHsieh/sapelo2-boilerplate/actions/workflows/docs.yml)
-![Claude Code ready](https://img.shields.io/badge/Claude_Code-ready-ef6c00?logo=anthropic&logoColor=white)
-![SLURM](https://img.shields.io/badge/SLURM-GACRC_Sapelo2-2e7d32)
+Notes, sbatch scripts, and Claude Code rules for running work on [GACRC Sapelo2](https://wiki.gacrc.uga.edu) — UGA's HPC cluster. Written from things that broke first.
 
-Battle-tested scripts, agent rules, and pipelines for running real work on [GACRC Sapelo2](https://wiki.gacrc.uga.edu) — UGA's shared HPC cluster. Opinionated, cluster-aware, and written from things that broke first.
-
-📖 **Browse the full docs at [chenhsieh.github.io/sapelo2-boilerplate](https://chenhsieh.github.io/sapelo2-boilerplate/)**
+Docs: <https://chenhsieh.github.io/sapelo2-boilerplate/>
 
 ## What's inside
 

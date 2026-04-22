@@ -1,9 +1,6 @@
 # OrthoFinder on Sapelo2
 
-![Nodes](https://img.shields.io/badge/nodes-4_%C3%97_32-2962ff)
-![Memory](https://img.shields.io/badge/memory-128G-2e7d32)
-![Time](https://img.shields.io/badge/time-168h-ef6c00)
-![Partition](https://img.shields.io/badge/partition-batch-616161)
+`4 × 32 CPU · 128 G · 168 h · batch`
 
 Runs OrthoFinder with DIAMOND as the all-vs-all search engine.
 
