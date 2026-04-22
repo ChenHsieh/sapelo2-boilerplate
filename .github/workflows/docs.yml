@@ -10,6 +10,7 @@ on:
       - 'claude-code/**.md'
       - 'apps/**/README.md'
       - 'pipeline/**/README.md'
+      - 'generic_template/**'
       - 'README.md'
   workflow_dispatch:
 
@@ -32,6 +33,7 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
+          cache-dependency-path: docs/requirements.txt
 
       - name: Install system deps for social cards
         run: |
@@ -39,10 +41,7 @@ jobs:
           sudo apt-get install -y libcairo2-dev libfreetype6-dev libffi-dev libjpeg-dev libpng-dev libz-dev
 
       - name: Install MkDocs + plugins
-        run: |
-          pip install \
-            "mkdocs-material[imaging]" \
-            mkdocs-git-revision-date-localized-plugin
+        run: pip install -r docs/requirements.txt
 
       - name: Build & deploy
         run: mkdocs gh-deploy --force --clean
