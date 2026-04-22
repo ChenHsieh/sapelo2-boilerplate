@@ -1,1 +1,0 @@
---8<-- "pipeline/get_best_hit/README.md"

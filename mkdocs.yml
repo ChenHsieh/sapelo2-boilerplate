@@ -110,20 +110,8 @@ nav:
   - Claude Code:
       - Overview: claude-code/index.md
       - Ruleset (CLAUDE.md): claude-code/rules.md
-  - Recipes:
-      - Overview: recipes/index.md
-      - alphaFold: recipes/alphafold.md
-      - BUSCO: recipes/busco.md
-      - MCScanX: recipes/mcscanx.md
-      - nf-core/rnaseq: recipes/nfcore-rnaseq.md
-      - OmegaFold: recipes/omega.md
-      - OrthoFinder: recipes/orthofinder.md
-      - SpeedPPI: recipes/speedppi.md
-      - Trinotate: recipes/trinotate.md
-  - Pipelines:
-      - Overview: pipelines/index.md
-      - yt_whisper: pipelines/yt-whisper.md
-      - get_best_hit: pipelines/get-best-hit.md
+  - Recipes: recipes/index.md
+  - Pipelines: pipelines/index.md
   - Reference:
       - sbatch templates: reference/sbatch.md
       - Storage topology: reference/storage.md

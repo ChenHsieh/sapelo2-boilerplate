@@ -1,23 +1,10 @@
 # Pipelines
 
-Snakemake pipelines designed for Sapelo2 — each submits as a single sbatch job that spawns parallel rules internally. For larger pipelines, migrate to a Snakemake Slurm profile so each rule becomes its own sbatch with per-rule resources.
+Snakemake pipelines live in [`pipeline/`](https://github.com/ChenHsieh/sapelo2-boilerplate/tree/main/pipeline) in the repo.
 
-<div class="grid cards" markdown>
+| Pipeline | What | Source |
+|---|---|---|
+| yt_whisper | YouTube URL → audio → Whisper transcription. V100, <4 h on `batch`. | [pipeline/yt_whisper](https://github.com/ChenHsieh/sapelo2-boilerplate/tree/main/pipeline/yt_whisper) |
+| get_best_hit | Cross-species DIAMOND best-hits for transcriptome annotation. | [pipeline/get_best_hit](https://github.com/ChenHsieh/sapelo2-boilerplate/tree/main/pipeline/get_best_hit) |
 
--   :material-video-outline: __yt_whisper__
-
-    ---
-
-    YouTube URL → audio → Whisper transcription. GPU-accelerated (V100, <4h on batch).
-
-    [:octicons-arrow-right-24: yt_whisper](yt-whisper.md)
-
--   :material-dna: __get_best_hit__
-
-    ---
-
-    Cross-species DIAMOND best-hits for functional annotation of novel transcriptomes.
-
-    [:octicons-arrow-right-24: get_best_hit](get-best-hit.md)
-
-</div>
+For larger pipelines, consider a Snakemake Slurm profile so each rule becomes its own sbatch with per-rule resources — see the `--profile` flag in the [Snakemake docs](https://snakemake.readthedocs.io/en/stable/executing/cluster.html).
