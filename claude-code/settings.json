@@ -1,0 +1,51 @@
+{
+  "permissions": {
+    "defaultMode": "auto",
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(du:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(wc:*)",
+      "Bash(awk:*)",
+      "Bash(sed:*)",
+      "Bash(echo:*)",
+
+      "Bash(sbatch:*)",
+      "Bash(squeue:*)",
+      "Bash(sq:*)",
+      "Bash(sq --me)",
+      "Bash(sacct:*)",
+      "Bash(sacct-gacrc:*)",
+      "Bash(seff:*)",
+      "Bash(sinfo*:*)",
+      "Bash(scancel:*)",
+
+      "Bash(module:*)",
+      "Bash(module avail:*)",
+      "Bash(module load:*)",
+
+      "Bash(conda:*)",
+      "Bash(conda env:*)",
+      "Bash(conda list:*)",
+      "Bash(conda info:*)",
+      "Bash(source activate:*)",
+
+      "Bash(git:*)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(python*:*)",
+      "Bash(Rscript:*)",
+      "Bash(pip install:*)"
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash /home/MYID/.claude/statusline-command.sh"
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "skipAutoPermissionPrompt": true
+}

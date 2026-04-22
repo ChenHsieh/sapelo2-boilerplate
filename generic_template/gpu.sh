@@ -1,16 +1,17 @@
 #!/bin/bash
-#SBATCH --job-name=whisper         # Job name
-#SBATCH --partition=batch             # Partition (queue) name
-#SBATCH --gres=gpu:V100:1         # for V100 and P100, we can use them from batch for less than 4 hours
-#SBATCH --ntasks=1            # Run on a single CPU
+#SBATCH --job-name=job_name
+#SBATCH --partition=batch
+#SBATCH --gres=gpu:V100:1        # V100/P100 from batch OK if <4h; else use gpu_p
+#SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=32gb                     # Job memory request
-#SBATCH --time=4:00:00               # Time limit hrs:min:sec
-#SBATCH --output=whisper.%j.out    # Standard output log
-#SBATCH --error=whisper.%j.err     # Standard error log
-#SBATCH --mail-type=ALL          # Mail events (NONE, BEGIN, END, FAIL, ALL)
-#SBATCH --mail-user=youremail@uga.edu  # Where to send mail
+#SBATCH --mem=32gb
+#SBATCH --time=4:00:00
+#SBATCH --output=%x.%j.out
+#SBATCH --error=%x.%j.err
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=youremail@uga.edu
+
+cd "$SLURM_SUBMIT_DIR"
+
 date
-
 echo "do GPU stuff"
-

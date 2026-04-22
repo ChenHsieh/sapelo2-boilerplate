@@ -1,0 +1,32 @@
+# Never commit — Claude Code state and secrets
+.credentials.json
+*.credentials*
+history.jsonl
+sessions/
+projects/
+file-history/
+shell-snapshots/
+session-env/
+paste-cache/
+tasks/
+plans/
+debug/
+backups/
+telemetry/
+remote/
+cache/
+downloads/
+stats-cache.json
+mcp-needs-auth-cache.json
+scheduled_tasks.lock
+settings.local.json
+
+# Editor / OS
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.pyc

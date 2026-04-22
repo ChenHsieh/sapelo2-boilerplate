@@ -8,7 +8,7 @@
 #SBATCH --time=720:00:00      #30*24     
 #SBATCH --output=%x.%j.out     
 #SBATCH --error=%x.%j.err          
-#SBATCH --mail-user=ch29576@uga.edu  
+#SBATCH --mail-user=youremail@uga.edu
 #SBATCH --mail-type=ALL   
 
 # Load the necessary modules

@@ -9,7 +9,7 @@
 #SBATCH --output=SpeedPPI.%j.out         # Standard output log
 #SBATCH --error=SpeedPPI.%j.err          # Standard error log
 #SBATCH --mail-type=END,FAIL          # Mail events (NONE, BEGIN, END, FAIL, ALL)
-#SBATCH --mail-user=ch29576@uga.edu  # Where to send mail	
+#SBATCH --mail-user=youremail@uga.edu  # Where to send mail
 
 
 ml SpeedPPI/20230608

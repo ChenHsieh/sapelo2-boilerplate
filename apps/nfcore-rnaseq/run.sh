@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #SBATCH -J job_name
 #SBATCH --partition batch
 #SBATCH --ntasks=1

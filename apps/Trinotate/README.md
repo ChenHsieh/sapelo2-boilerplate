@@ -1,6 +1,11 @@
-# running trinotate on sapelo2 
+# Trinotate on Sapelo2
 
-the sequence databases described [here](https://github.com/Trinotate/Trinotate/wiki/Software-installation-and-data-required#2-sequence-databases-required) can be reused if not outdated. GACRC have the required database here after loading the module:
+![CPUs](https://img.shields.io/badge/CPUs-32-2962ff)
+![Memory](https://img.shields.io/badge/memory-408G-2e7d32)
+![Time](https://img.shields.io/badge/time-120h-ef6c00)
+![Partition](https://img.shields.io/badge/partition-highmem__p-616161)
+
+The sequence databases described [here](https://github.com/Trinotate/Trinotate/wiki/Software-installation-and-data-required#2-sequence-databases-required) can be reused if not outdated. GACRC have the required database here after loading the module:
 
 ```
 ml Trinotate/4.0.2-foss-2022a

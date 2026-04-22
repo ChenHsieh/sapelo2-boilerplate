@@ -127,3 +127,4 @@ nav:
       - get_best_hit: pipelines/get-best-hit.md
   - Reference:
       - sbatch templates: reference/sbatch.md
+      - Storage topology: reference/storage.md

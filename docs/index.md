@@ -4,10 +4,25 @@ hide:
   - toc
 ---
 
-# Sapelo2 Boilerplate
+<pre class="hero-ascii">
+<span class="hero-grad">███████╗ █████╗ ██████╗ ███████╗██╗      ██████╗ ██████╗ </span>
+<span class="hero-grad">██╔════╝██╔══██╗██╔══██╗██╔════╝██║     ██╔═══██╗╚════██╗</span>
+<span class="hero-grad">███████╗███████║██████╔╝█████╗  ██║     ██║   ██║ █████╔╝</span>
+<span class="hero-grad">╚════██║██╔══██║██╔═══╝ ██╔══╝  ██║     ██║   ██║██╔═══╝ </span>
+<span class="hero-grad">███████║██║  ██║██║     ███████╗███████╗╚██████╔╝███████╗</span>
+<span class="hero-grad">╚══════╝╚═╝  ╚═╝╚═╝     ╚══════╝╚══════╝ ╚═════╝ ╚══════╝</span>
+<span class="hero-sub">    B O I L E R P L A T E · U G A   G A C R C   H P C</span>
+</pre>
 
-<p style="font-size: 1.15rem; opacity: 0.85;">
+<p class="hero-tag" markdown>
 Battle-tested scripts, agent rules, and pipelines for running real work on <a href="https://wiki.gacrc.uga.edu">GACRC Sapelo2</a> — UGA's shared HPC cluster. Opinionated. Cluster-aware. Written from things that broke first.
+</p>
+
+<p class="hero-badges" markdown>
+![Built with MkDocs Material](https://img.shields.io/badge/built_with-Material_for_MkDocs-5e35b1?logo=materialformkdocs&logoColor=white)
+![Claude Code ready](https://img.shields.io/badge/Claude_Code-ready-ef6c00?logo=anthropic&logoColor=white)
+![SLURM](https://img.shields.io/badge/SLURM-GACRC_Sapelo2-2e7d32)
+[![GitHub](https://img.shields.io/badge/source-GitHub-24292f?logo=github)](https://github.com/ChenHsieh/sapelo2-boilerplate)
 </p>
 
 <div class="grid cards" markdown>
@@ -63,6 +78,38 @@ flowchart LR
 ```
 
 Claude Code's bash tool runs wherever the shell that launched it runs. Launch it on the login node and every command hits the login node. Launch it inside an `interact` session and it gets real compute. The cluster doesn't care that you're using a fancy AI tool — same rules apply.
+
+## Job lifecycle
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as You
+    participant C as Claude Code
+    participant S as SLURM
+    participant N as Compute node
+    participant M as Mail
+
+    U->>C: "run the embedding extraction"
+    C->>C: write run.sh
+    C->>S: sbatch run.sh
+    S-->>C: Submitted · JOBID 4411981
+    C->>S: squeue -j 4411981  (15–30s later)
+    alt Job RUNNING
+        S-->>C: RUNNING on c4-16
+        C->>N: tail -f logs/*.out
+    else Job already FAILED
+        S-->>C: FAILED ExitCode 1
+        C->>N: tail -20 *.err → diagnose
+        C->>C: fix root cause
+        C->>S: sbatch run.sh (corrected)
+    end
+    N->>M: job complete / failed
+    M-->>U: email notification
+    U->>C: seff 4411981
+```
+
+The post-submission health check (step 4) is mandatory — it catches the 90% of failures that happen in the first 10 seconds (wrong module version, missing path, `conda activate` in sbatch).
 
 ## Conventions
 

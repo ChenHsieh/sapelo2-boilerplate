@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #SBATCH -J mcscanx_h1
 #SBATCH --partition batch
 #SBATCH --ntasks=1
