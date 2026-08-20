@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1219,11 +1219,11 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">#SBATCH --array=1-20</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">#SBATCH --output=array_%A_%a.out</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nv">SAMPLE</span><span class="o">=</span><span class="k">$(</span>sed<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SLURM_ARRAY_TASK_ID</span><span class="si">}</span><span class="s2">p&quot;</span><span class="w"> </span>samples.txt<span class="k">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nv">SAMPLE</span><span class="o">=</span><span class="k">$(</span>sed<span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">SLURM_ARRAY_TASK_ID</span><span class="si">}</span><span class="s2">p"</span><span class="w"> </span>samples.txt<span class="k">)</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># ... pipeline on $SAMPLE ...</span>
 </span></code></pre></div>
 <h2 id="chained-jobs">Chained jobs<a class="headerlink" href="#chained-jobs" title="Link to this section">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">JOB1</span><span class="o">=</span><span class="k">$(</span>sbatch<span class="w"> </span>align.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $4}&#39;</span><span class="k">)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">JOB1</span><span class="o">=</span><span class="k">$(</span>sbatch<span class="w"> </span>align.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{print $4}'</span><span class="k">)</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>sbatch<span class="w"> </span>--dependency<span class="o">=</span>afterok:<span class="nv">$JOB1</span><span class="w"> </span>count.sh
 </span></code></pre></div>
 <h2 id="resource-tuning-with-seff">Resource tuning with <code>seff</code><a class="headerlink" href="#resource-tuning-with-seff" title="Link to this section">&para;</a></h2>
@@ -1233,7 +1233,7 @@
 </span></code></pre></div>
 <p>Over-requesting memory is the most common waste — the scheduler has to find a node with that much free, so your job waits longer. Tune from real numbers.</p>
 <p>Use <code>$SLURM_CPUS_PER_TASK</code> in your commands so thread count stays in sync with the header:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>aligner<span class="w"> </span>--threads<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SLURM_CPUS_PER_TASK</span><span class="s2">&quot;</span><span class="w"> </span>...
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>aligner<span class="w"> </span>--threads<span class="w"> </span><span class="s2">"</span><span class="nv">$SLURM_CPUS_PER_TASK</span><span class="s2">"</span><span class="w"> </span>...
 </span></code></pre></div>
 <h2 id="lscratch-staging"><code>/lscratch</code> staging<a class="headerlink" href="#lscratch-staging" title="Link to this section">&para;</a></h2>
 <p>For I/O-bound single-node jobs, staging inputs onto the node's local disk can halve wall-time:</p>
@@ -1242,10 +1242,10 @@
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nv">STAGE</span><span class="o">=</span>/lscratch/<span class="nv">$SLURM_JOB_ID</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nv">OUT</span><span class="o">=</span>/scratch/<span class="nv">$USER</span>/results
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>cp<span class="w"> </span>/work/&lt;lab&gt;/genome/*<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$STAGE</span><span class="s2">/&quot;</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$STAGE</span><span class="s2">&quot;</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>aligner<span class="w"> </span>--ref<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$STAGE</span><span class="s2">/genome.fa&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$STAGE</span><span class="s2">/out.bam&quot;</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>cp<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$STAGE</span><span class="s2">/out.bam&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$OUT</span><span class="s2">/&quot;</span><span class="w">       </span><span class="c1"># copy back before the job exits</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>cp<span class="w"> </span>/work/&lt;lab&gt;/genome/*<span class="w"> </span><span class="s2">"</span><span class="nv">$STAGE</span><span class="s2">/"</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$STAGE</span><span class="s2">"</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>aligner<span class="w"> </span>--ref<span class="w"> </span><span class="s2">"</span><span class="nv">$STAGE</span><span class="s2">/genome.fa"</span><span class="w"> </span>-o<span class="w"> </span><span class="s2">"</span><span class="nv">$STAGE</span><span class="s2">/out.bam"</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>cp<span class="w"> </span><span class="s2">"</span><span class="nv">$STAGE</span><span class="s2">/out.bam"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$OUT</span><span class="s2">/"</span><span class="w">       </span><span class="c1"># copy back before the job exits</span>
 </span></code></pre></div>
 <p><code>/lscratch</code> disappears at job end — always copy results out.</p>
 <h2 id="scavenge_p-is-free-speedup"><code>scavenge_p</code> is free speedup<a class="headerlink" href="#scavenge_p-is-free-speedup" title="Link to this section">&para;</a></h2>
@@ -1271,9 +1271,9 @@
 <li><code>tmux</code> for window splits; start it on the login node <em>before</em> <code>interact</code> if you want to cover SSH drops. Not a fault-tolerance layer for your Claude session — if <code>interact</code> walltime expires, tmux doesn't help.</li>
 </ul>
 <p>Useful aliases:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">myq</span><span class="o">=</span><span class="s1">&#39;sq --me&#39;</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">scratch</span><span class="o">=</span><span class="s1">&#39;cd /scratch/$USER&#39;</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">interact8</span><span class="o">=</span><span class="s1">&#39;interact -c 8 --mem=16G --time=8:00:00&#39;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">myq</span><span class="o">=</span><span class="s1">'sq --me'</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">scratch</span><span class="o">=</span><span class="s1">'cd /scratch/$USER'</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">interact8</span><span class="o">=</span><span class="s1">'interact -c 8 --mem=16G --time=8:00:00'</span>
 </span></code></pre></div>
 <h2 id="ssh-clients-prefer-a-plain-terminal">SSH clients — prefer a plain terminal<a class="headerlink" href="#ssh-clients-prefer-a-plain-terminal" title="Link to this section">&para;</a></h2>
 <p>Skip VS Code Remote SSH if you can. Two reasons:</p>
@@ -1427,7 +1427,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.tracking", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.action.edit", "content.action.view"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
