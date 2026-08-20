@@ -4,6 +4,10 @@ Notes, sbatch scripts, and Claude Code rules for running work on [GACRC Sapelo2]
 
 Docs: <https://chenhsieh.github.io/sapelo2-boilerplate/>
 
+> **Note:** This is a Sapelo2-specific reference, kept as a snapshot. For the
+> cluster-agnostic, general-purpose version of these agentic research
+> workflows, see [agentic-research-toolkit](https://github.com/ChenHsieh/agentic-research-toolkit).
+
 ## What's inside
 
 | Dir | What |
