@@ -850,6 +850,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#memory-bound-work-dont-reach-for-highmem_p-by-reflex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory-bound work: don't reach for highmem_p by reflex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#key-scheduling-insights" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1438,6 +1449,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#memory-bound-work-dont-reach-for-highmem_p-by-reflex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory-bound work: don't reach for highmem_p by reflex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#key-scheduling-insights" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1753,10 +1775,11 @@ Login = <code>ss-sub&lt;N&gt;</code>, compute = <code>c4-&lt;N&gt;</code> etc.</
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>interact<span class="w"> </span>-c<span class="w"> </span><span class="m">8</span><span class="w"> </span>--mem<span class="o">=</span>16G<span class="w"> </span>--time<span class="o">=</span><span class="m">8</span>:00:00
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># High-memory work (genome indexing, large R objects)</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>interact<span class="w"> </span>-p<span class="w"> </span>highmem_p<span class="w"> </span>--mem<span class="o">=</span>64G<span class="w"> </span>--time<span class="o">=</span><span class="m">4</span>:00:00
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># GPU testing</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>interact<span class="w"> </span>-p<span class="w"> </span>gpu_p<span class="w"> </span>--gres<span class="o">=</span>gpu:A100:1<span class="w"> </span>--mem<span class="o">=</span>50G
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="c1"># If your lab has buy-in access (e.g. iob_p), check it too -- often freer.</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>interact<span class="w"> </span>-p<span class="w"> </span>highmem_p<span class="w"> </span>--mem<span class="o">=</span>64G<span class="w"> </span>--time<span class="o">=</span><span class="m">4</span>:00:00
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="c1"># GPU testing</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>interact<span class="w"> </span>-p<span class="w"> </span>gpu_p<span class="w"> </span>--gres<span class="o">=</span>gpu:A100:1<span class="w"> </span>--mem<span class="o">=</span>50G
 </span></code></pre></div>
 <p>Always run inside <code>tmux</code> first so SSH disconnects don't kill the session:
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>tmux<span class="w"> </span>new<span class="w"> </span>-s<span class="w"> </span>work<span class="w">        </span><span class="c1"># or: tmux attach -t work</span>
@@ -2044,7 +2067,7 @@ After test runs: <code>seff &lt;jobID&gt;</code> to check actual memory/CPU usag
 <td>7 days</td>
 <td>6</td>
 <td>100</td>
-<td>24 nodes, ~800GB RAM/node</td>
+<td>24 nodes, 510GB–1TB RAM/node. Frequently contended — check a buy-in partition too if you have one.</td>
 </tr>
 <tr>
 <td><code>hugemem_p</code></td>
@@ -2066,9 +2089,9 @@ After test runs: <code>seff &lt;jobID&gt;</code> to check actual memory/CPU usag
 <td><code>iob_p</code></td>
 <td>iob_p_qos</td>
 <td>30 days</td>
-<td>10</td>
+<td><strong>10</strong></td>
 <td>—</td>
-<td>IOB buy-in; 22 nodes, 128 cores each. User has access via YOURLAB</td>
+<td>IOB buy-in (access via YOURLAB). <strong>22 nodes, 128 cores each, every node ≥748 GB RAM</strong> (10× ~997 GB, 12× ~748 GB), verified 2026-08-28. <strong>If you have buy-in access, check this before <code>highmem_p</code> — see below.</strong></td>
 </tr>
 <tr>
 <td><code>scavenge_p</code></td>
@@ -2136,6 +2159,57 @@ After test runs: <code>seff &lt;jobID&gt;</code> to check actual memory/CPU usag
 </tr>
 </tbody>
 </table>
+<h3 id="memory-bound-work-dont-reach-for-highmem_p-by-reflex">Memory-bound work: don't reach for <code>highmem_p</code> by reflex<a class="headerlink" href="#memory-bound-work-dont-reach-for-highmem_p-by-reflex" title="Link to this section">&para;</a></h3>
+<p>If your lab has <strong>buy-in partition access</strong> (here: <code>iob_p</code> via YOURLAB), check it
+before <code>highmem_p</code>. Buy-in nodes are often both larger and far less contended,
+because everyone else selects <code>highmem_p</code> by name:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>iob_p</code> (buy-in)</th>
+<th><code>highmem_p</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nodes</td>
+<td>22</td>
+<td>24</td>
+</tr>
+<tr>
+<td>RAM/node</td>
+<td><strong>≥748 GB on every node</strong></td>
+<td>510 GB – 1 TB, varies</td>
+</tr>
+<tr>
+<td>Cores/node</td>
+<td><strong>128 on every node</strong></td>
+<td>32–128</td>
+</tr>
+<tr>
+<td>Concurrent jobs</td>
+<td><strong>10</strong></td>
+<td>6</td>
+</tr>
+<tr>
+<td>Max wall</td>
+<td><strong>30 days</strong></td>
+<td>7 days</td>
+</tr>
+</tbody>
+</table>
+<p>Observed 2026-08-28: <code>iob_p</code> had <strong>11 nodes fully idle</strong> while <code>highmem_p</code> was
+mostly draining/allocated with one usable node.</p>
+<p><strong>Rule: for any job needing &gt;64 GB, query both and submit to the freer one.</strong>
+Never choose a partition from its name alone.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>sinfo<span class="w"> </span>-p<span class="w"> </span>iob_p<span class="w">     </span>-o<span class="w"> </span><span class="s2">"%P %T %D %C %e"</span><span class="w">   </span><span class="c1"># %e = free memory</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>sinfo<span class="w"> </span>-p<span class="w"> </span>highmem_p<span class="w"> </span>-o<span class="w"> </span><span class="s2">"%P %T %D %C %e"</span>
+</span></code></pre></div>
+<p>Caveats: buy-in availability swings with the owning group's load, so re-check
+per submission (it is <em>not</em> preemptible like <code>scavenge_p</code>). Right-size anyway —
+a 750 GB node is not a licence to request all of it. Reserve <code>hugemem_p</code> for
+jobs genuinely exceeding ~1 TB.</p>
 <h3 id="key-scheduling-insights">Key scheduling insights<a class="headerlink" href="#key-scheduling-insights" title="Link to this section">&para;</a></h3>
 <ul>
 <li><strong>gpu_p max 8 running jobs</strong> — count your active GPU jobs before submitting more</li>
@@ -2148,13 +2222,13 @@ After test runs: <code>seff &lt;jobID&gt;</code> to check actual memory/CPU usag
 <hr />
 <h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Link to this section">&para;</a></h2>
 <p>Sapelo2 can't open a browser for OAuth. Use API key in <code>~/.bashrc</code>:
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span>sk-ant-...
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span>sk-ant-...
 </span></code></pre></div></p>
 <hr />
 <h2 id="session-architecture-recovery">Session architecture &amp; recovery<a class="headerlink" href="#session-architecture-recovery" title="Link to this section">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>local  →  ssh  →  login node  →  interact  →  compute node  →  claude
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>                                                                  │
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>                                                                  └─ sbatch  →  batch compute
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>local  →  ssh  →  login node  →  interact  →  compute node  →  claude
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>                                                                  │
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>                                                                  └─ sbatch  →  batch compute
 </span></code></pre></div>
 <ul>
 <li>VPN: only if off-campus.</li>
@@ -2166,16 +2240,16 @@ After test runs: <code>seff &lt;jobID&gt;</code> to check actual memory/CPU usag
 <p><strong>Claude session lifetime = <code>interact</code> walltime.</strong> Pick walltime covering what you want to do. Long jobs belong in <code>sbatch</code>, not a live Claude session.</p>
 <h3 id="reconnecting-after-an-ssh-drop">Reconnecting after an SSH drop<a class="headerlink" href="#reconnecting-after-an-ssh-drop" title="Link to this section">&para;</a></h3>
 <p>Only works if you started <code>tmux</code> on the login node <em>before</em> <code>interact</code>:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ssh<span class="w"> </span>sapelo2
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>tmux<span class="w"> </span>attach<span class="w"> </span>-t<span class="w"> </span>&lt;session&gt;
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>squeue<span class="w"> </span>-j<span class="w"> </span>&lt;JOBID&gt;<span class="w">          </span><span class="c1"># confirm the interact job is still alive</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ssh<span class="w"> </span>sapelo2
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>tmux<span class="w"> </span>attach<span class="w"> </span>-t<span class="w"> </span>&lt;session&gt;
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>squeue<span class="w"> </span>-j<span class="w"> </span>&lt;JOBID&gt;<span class="w">          </span><span class="c1"># confirm the interact job is still alive</span>
 </span></code></pre></div>
 <p>Otherwise the pty hangup killed the interact job when the SSH connection died — start over.</p>
 <h3 id="if-the-terminal-freezes-sock-hopping-unresponsive">If the terminal freezes ("sock-hopping" / unresponsive)<a class="headerlink" href="#if-the-terminal-freezes-sock-hopping-unresponsive" title="Link to this section">&para;</a></h3>
 <p>A subprocess may hang and grab the pty. From a fresh SSH session:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>tmux<span class="w"> </span>attach<span class="w"> </span>-t<span class="w"> </span>&lt;session&gt;<span class="w">                              </span><span class="c1"># try plain attach</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>tmux<span class="w"> </span>kill-pane<span class="w"> </span>-t<span class="w"> </span>&lt;session&gt;:&lt;window&gt;.&lt;pane&gt;<span class="w">           </span><span class="c1"># if still frozen</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>claude<span class="w"> </span>--resume<span class="w">                                        </span><span class="c1"># pick up last checkpoint</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>tmux<span class="w"> </span>attach<span class="w"> </span>-t<span class="w"> </span>&lt;session&gt;<span class="w">                              </span><span class="c1"># try plain attach</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>tmux<span class="w"> </span>kill-pane<span class="w"> </span>-t<span class="w"> </span>&lt;session&gt;:&lt;window&gt;.&lt;pane&gt;<span class="w">           </span><span class="c1"># if still frozen</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>claude<span class="w"> </span>--resume<span class="w">                                        </span><span class="c1"># pick up last checkpoint</span>
 </span></code></pre></div>
 <h3 id="effort-level-match-to-task">Effort level — match to task<a class="headerlink" href="#effort-level-match-to-task" title="Link to this section">&para;</a></h3>
 <p><code>/effort low|medium|high|max</code> sets reasoning depth. Defaults are wasteful.</p>
@@ -2187,7 +2261,7 @@ After test runs: <code>seff &lt;jobID&gt;</code> to check actual memory/CPU usag
 <p>Opus + <code>max</code> on <code>ls</code> burns money for no upside.</p>
 <h3 id="login-node-memory-vs-code-gotcha">Login node memory — VS Code gotcha<a class="headerlink" href="#login-node-memory-vs-code-gotcha" title="Link to this section">&para;</a></h3>
 <p>If GACRC emails you about login-node memory, <strong>check VS Code Remote SSH first</strong>, not Claude. VS Code's language servers (pylance, node, etc.) run persistently on the login node even when the editor looks idle.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>vscode
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>vscode
 </span></code></pre></div>
 <p>Claude Code itself is lightweight on the login node — the bash tool spawns short-lived subprocesses and doesn't hold memory between calls.</p>
 <hr />
@@ -2205,24 +2279,24 @@ After test runs: <code>seff &lt;jobID&gt;</code> to check actual memory/CPU usag
 - Use <code>conda activate</code> in sbatch scripts — always <code>source activate</code>
 - Guess module versions — always verify with <code>module avail &lt;name&gt;</code> first</p>
 <p><strong>Monitoring commands:</strong>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>sq<span class="w"> </span>--me<span class="w">                    </span><span class="c1"># your running/pending jobs (nicer than squeue)</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>seff<span class="w"> </span>&lt;jobID&gt;<span class="w">               </span><span class="c1"># resource usage after job completes</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>sacct-gacrc<span class="w">                </span><span class="c1"># detailed job accounting</span>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>sinfo-gacrc<span class="w">                </span><span class="c1"># cluster availability per node</span>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>scancel<span class="w"> </span>&lt;jobID&gt;<span class="w">            </span><span class="c1"># cancel a job</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>sq<span class="w"> </span>--me<span class="w">                    </span><span class="c1"># your running/pending jobs (nicer than squeue)</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>seff<span class="w"> </span>&lt;jobID&gt;<span class="w">               </span><span class="c1"># resource usage after job completes</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>sacct-gacrc<span class="w">                </span><span class="c1"># detailed job accounting</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>sinfo-gacrc<span class="w">                </span><span class="c1"># cluster availability per node</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>scancel<span class="w"> </span>&lt;jobID&gt;<span class="w">            </span><span class="c1"># cancel a job</span>
 </span></code></pre></div></p>
 <h3 id="post-submission-job-health-check-mandatory">Post-submission job health check (MANDATORY)<a class="headerlink" href="#post-submission-job-health-check-mandatory" title="Link to this section">&para;</a></h3>
 <p><strong>After every <code>sbatch</code> submission</strong>, wait ~15–30 seconds then verify the job is actually running and not immediately failing. Many errors (wrong module version, conda init, missing files) cause instant failure that can be caught and fixed right away.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># 1. Check job is still running (not already gone from queue)</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>squeue<span class="w"> </span>-j<span class="w"> </span>&lt;JOBID&gt;<span class="w"> </span>-o<span class="w"> </span><span class="s2">"%j %T %M %R"</span>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># 2. If job already disappeared, check exit status</span>
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>seff<span class="w"> </span>&lt;JOBID&gt;
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c1"># 3. If FAILED, read the .err file for the cause</span>
-</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>tail<span class="w"> </span>-20<span class="w"> </span>&lt;jobname&gt;_&lt;JOBID&gt;.err
-</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>
-</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="c1"># 4. Fix the issue and resubmit</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># 1. Check job is still running (not already gone from queue)</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>squeue<span class="w"> </span>-j<span class="w"> </span>&lt;JOBID&gt;<span class="w"> </span>-o<span class="w"> </span><span class="s2">"%j %T %M %R"</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># 2. If job already disappeared, check exit status</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>seff<span class="w"> </span>&lt;JOBID&gt;
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="c1"># 3. If FAILED, read the .err file for the cause</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>tail<span class="w"> </span>-20<span class="w"> </span>&lt;jobname&gt;_&lt;JOBID&gt;.err
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="c1"># 4. Fix the issue and resubmit</span>
 </span></code></pre></div>
 <p><strong>Common instant-failure causes to check for before submitting:</strong>
 - Wrong module version → run <code>module avail &lt;name&gt;</code> to verify
@@ -2236,9 +2310,9 @@ After test runs: <code>seff &lt;jobID&gt;</code> to check actual memory/CPU usag
 <p>Do NOT move on to other work after submitting without confirming the job is healthy. The user should not have to discover failed jobs themselves.</p>
 <h3 id="background-job-monitoring-timer-pattern">Background job monitoring (timer pattern)<a class="headerlink" href="#background-job-monitoring-timer-pattern" title="Link to this section">&para;</a></h3>
 <p>For jobs that will finish in a few minutes to an hour, use <code>run_in_background</code> with <code>sleep</code> to set up automatic check-ins. This lets the user continue interacting while Claude monitors jobs asynchronously.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Set a background timer to check job status in N seconds</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>sleep<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>squeue<span class="w"> </span>-j<span class="w"> </span>&lt;JOBID&gt;<span class="w"> </span>-o<span class="w"> </span><span class="s2">"%j %T %M %R"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span>tail<span class="w"> </span>-5<span class="w"> </span>/scratch/MYID/ms1_cis_regulatory/logs/&lt;jobname&gt;_&lt;JOBID&gt;.out
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Set a background timer to check job status in N seconds</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>sleep<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>squeue<span class="w"> </span>-j<span class="w"> </span>&lt;JOBID&gt;<span class="w"> </span>-o<span class="w"> </span><span class="s2">"%j %T %M %R"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">  </span>tail<span class="w"> </span>-5<span class="w"> </span>/scratch/MYID/&lt;project&gt;/logs/&lt;jobname&gt;_&lt;JOBID&gt;.out
 </span></code></pre></div>
 <p><strong>When to use:</strong>
 - After submitting sbatch jobs that should finish within the session (~minutes to ~1 hour)
@@ -2272,16 +2346,16 @@ After test runs: <code>seff &lt;jobID&gt;</code> to check actual memory/CPU usag
 - After code changes to the extraction pipeline
 - When correlations or downstream AUC look suspicious</p>
 <p><strong>Quick diagnostic (runs on CPU, no GPU needed):</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"embeddings_model_region_hap.npz"</span><span class="p">)</span>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="n">emb</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">"embeddings"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Shape: </span><span class="si">{</span><span class="n">emb</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Dead dims: </span><span class="si">{</span><span class="p">(</span><span class="n">emb</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">1e-6</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">emb</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="n">sub</span> <span class="o">=</span> <span class="n">emb</span><span class="p">[</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">emb</span><span class="p">),</span> <span class="mi">100</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
-</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="n">corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
-</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="n">off</span> <span class="o">=</span> <span class="n">corr</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices_from</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
-</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean pairwise corr: </span><span class="si">{</span><span class="n">off</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"embeddings_model_region_hap.npz"</span><span class="p">)</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="n">emb</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">"embeddings"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Shape: </span><span class="si">{</span><span class="n">emb</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Dead dims: </span><span class="si">{</span><span class="p">(</span><span class="n">emb</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">1e-6</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">emb</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="n">sub</span> <span class="o">=</span> <span class="n">emb</span><span class="p">[</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">emb</span><span class="p">),</span> <span class="mi">100</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="n">corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="n">off</span> <span class="o">=</span> <span class="n">corr</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices_from</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean pairwise corr: </span><span class="si">{</span><span class="n">off</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </span></code></pre></div></p>
 <hr />
 <h2 id="pipeline-script-design-reuse-and-resilience">Pipeline script design — reuse and resilience<a class="headerlink" href="#pipeline-script-design-reuse-and-resilience" title="Link to this section">&para;</a></h2>
@@ -2297,14 +2371,14 @@ After test runs: <code>seff &lt;jobID&gt;</code> to check actual memory/CPU usag
 - Write results incrementally (flush after each item)
 - On startup, scan the output file for already-completed items and skip them
 - This makes interrupted jobs cheap to restart without reprocessing</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Pattern: check for resume</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">done_queries</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="k">if</span> <span class="n">summary_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">summary_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>        <span class="nb">next</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>  <span class="c1"># skip header</span>
-</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
-</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>            <span class="n">done_queries</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Resuming: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">done_queries</span><span class="p">)</span><span class="si">}</span><span class="s2"> already processed"</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Pattern: check for resume</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="n">done_queries</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="k">if</span> <span class="n">summary_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">summary_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>        <span class="nb">next</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>  <span class="c1"># skip header</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>            <span class="n">done_queries</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Resuming: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">done_queries</span><span class="p">)</span><span class="si">}</span><span class="s2"> already processed"</span><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="batch-external-io-with-parallelism">Batch external I/O with parallelism<a class="headerlink" href="#batch-external-io-with-parallelism" title="Link to this section">&para;</a></h3>
 <p>When downloading many files (PDB structures, reference data), use ThreadPoolExecutor for parallel downloads rather than sequential wget. Cache downloads to avoid re-fetching on resume.</p>
@@ -2314,39 +2388,39 @@ After test runs: <code>seff &lt;jobID&gt;</code> to check actual memory/CPU usag
 <h2 id="permissions-pre-approve-safe-commands">Permissions (pre-approve safe commands)<a class="headerlink" href="#permissions-pre-approve-safe-commands" title="Link to this section">&para;</a></h2>
 <p>Save as <code>.claude/settings.json</code> in project root to reduce prompt fatigue
 without reaching for <code>--dangerously-skip-permissions</code>:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="p">{</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="nt">"allow"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">      </span><span class="s2">"Bash(sbatch:*)"</span><span class="p">,</span>
-</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">      </span><span class="s2">"Bash(squeue:*)"</span><span class="p">,</span>
-</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w">      </span><span class="s2">"Bash(sq:*)"</span><span class="p">,</span>
-</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="w">      </span><span class="s2">"Bash(seff:*)"</span><span class="p">,</span>
-</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">      </span><span class="s2">"Bash(sacct*:*)"</span><span class="p">,</span>
-</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="w">      </span><span class="s2">"Bash(sinfo*:*)"</span><span class="p">,</span>
-</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="w">      </span><span class="s2">"Bash(scancel:*)"</span><span class="p">,</span>
-</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="w">      </span><span class="s2">"Bash(module:*)"</span><span class="p">,</span>
-</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a><span class="w">      </span><span class="s2">"Bash(conda:*)"</span><span class="p">,</span>
-</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a><span class="w">      </span><span class="s2">"Bash(git:*)"</span><span class="p">,</span>
-</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a><span class="w">      </span><span class="s2">"Bash(ls:*)"</span><span class="p">,</span>
-</span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a><span class="w">      </span><span class="s2">"Bash(du:*)"</span><span class="p">,</span>
-</span><span id="__span-19-16"><a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a><span class="w">      </span><span class="s2">"Bash(cat:*)"</span><span class="p">,</span>
-</span><span id="__span-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a><span class="w">      </span><span class="s2">"Bash(head:*)"</span><span class="p">,</span>
-</span><span id="__span-19-18"><a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a><span class="w">      </span><span class="s2">"Bash(tail:*)"</span><span class="p">,</span>
-</span><span id="__span-19-19"><a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a><span class="w">      </span><span class="s2">"Bash(grep:*)"</span><span class="p">,</span>
-</span><span id="__span-19-20"><a id="__codelineno-19-20" name="__codelineno-19-20" href="#__codelineno-19-20"></a><span class="w">      </span><span class="s2">"Bash(find:*)"</span>
-</span><span id="__span-19-21"><a id="__codelineno-19-21" name="__codelineno-19-21" href="#__codelineno-19-21"></a><span class="w">    </span><span class="p">]</span>
-</span><span id="__span-19-22"><a id="__codelineno-19-22" name="__codelineno-19-22" href="#__codelineno-19-22"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-19-23"><a id="__codelineno-19-23" name="__codelineno-19-23" href="#__codelineno-19-23"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="p">{</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="nt">"allow"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">      </span><span class="s2">"Bash(sbatch:*)"</span><span class="p">,</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">      </span><span class="s2">"Bash(squeue:*)"</span><span class="p">,</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">      </span><span class="s2">"Bash(sq:*)"</span><span class="p">,</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">      </span><span class="s2">"Bash(seff:*)"</span><span class="p">,</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="w">      </span><span class="s2">"Bash(sacct*:*)"</span><span class="p">,</span>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="w">      </span><span class="s2">"Bash(sinfo*:*)"</span><span class="p">,</span>
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="w">      </span><span class="s2">"Bash(scancel:*)"</span><span class="p">,</span>
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="w">      </span><span class="s2">"Bash(module:*)"</span><span class="p">,</span>
+</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="w">      </span><span class="s2">"Bash(conda:*)"</span><span class="p">,</span>
+</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="w">      </span><span class="s2">"Bash(git:*)"</span><span class="p">,</span>
+</span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a><span class="w">      </span><span class="s2">"Bash(ls:*)"</span><span class="p">,</span>
+</span><span id="__span-20-15"><a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a><span class="w">      </span><span class="s2">"Bash(du:*)"</span><span class="p">,</span>
+</span><span id="__span-20-16"><a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a><span class="w">      </span><span class="s2">"Bash(cat:*)"</span><span class="p">,</span>
+</span><span id="__span-20-17"><a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a><span class="w">      </span><span class="s2">"Bash(head:*)"</span><span class="p">,</span>
+</span><span id="__span-20-18"><a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a><span class="w">      </span><span class="s2">"Bash(tail:*)"</span><span class="p">,</span>
+</span><span id="__span-20-19"><a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a><span class="w">      </span><span class="s2">"Bash(grep:*)"</span><span class="p">,</span>
+</span><span id="__span-20-20"><a id="__codelineno-20-20" name="__codelineno-20-20" href="#__codelineno-20-20"></a><span class="w">      </span><span class="s2">"Bash(find:*)"</span>
+</span><span id="__span-20-21"><a id="__codelineno-20-21" name="__codelineno-20-21" href="#__codelineno-20-21"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-20-22"><a id="__codelineno-20-22" name="__codelineno-20-22" href="#__codelineno-20-22"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-20-23"><a id="__codelineno-20-23" name="__codelineno-20-23" href="#__codelineno-20-23"></a><span class="p">}</span>
 </span></code></pre></div>
 <hr />
 <h2 id="project-context-fill-in-for-your-own-work">Project context (fill in for your own work)<a class="headerlink" href="#project-context-fill-in-for-your-own-work" title="Link to this section">&para;</a></h2>
 <p>Replace this section with your own project's conda env, scratch/work paths,
 tools, and per-step resource estimates. Example:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Conda env:    conda activate &lt;your-env&gt;
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>Scratch:      /scratch/MYID/&lt;project&gt;/
-</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>Scripts:      /home/MYID/scripts/
-</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>Reference:    /work/YOURLAB/  (verify paths with PI)
-</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>Tools:        &lt;list the tools you actually use&gt;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>Conda env:    conda activate &lt;your-env&gt;
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>Scratch:      /scratch/MYID/&lt;project&gt;/
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>Scripts:      /home/MYID/scripts/
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>Reference:    /work/YOURLAB/  (verify paths with PI)
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>Tools:        &lt;list the tools you actually use&gt;
 </span></code></pre></div>
 <p>Typical resource estimates (one row per pipeline step):</p>
 <table>
