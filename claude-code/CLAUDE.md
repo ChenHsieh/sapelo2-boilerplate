@@ -46,6 +46,7 @@ interact
 interact -c 8 --mem=16G --time=8:00:00
 
 # High-memory work (genome indexing, large R objects)
+# If your lab has buy-in access (e.g. iob_p), check it too -- often freer.
 interact -p highmem_p --mem=64G --time=4:00:00
 
 # GPU testing
@@ -235,10 +236,10 @@ Per-user limits come from QOS, not the partition itself. Always check both.
 | `gpu_p` | gpu_qos | 7 days | **8** | 20 | 43 nodes, 160 GPUs. Specify type: `--gres=gpu:A100:1` or `H100`, `L4`, `L40S`, `P100` |
 | `gpu_p` (L4) | gpu_l4_qos | — | **4** | — | Separate cap on L4 jobs specifically |
 | `gpu_30d_p` | gpu_30d_qos | 30 days | 2 | 2 | Subset of gpu_p nodes (19 nodes, 64 GPUs) |
-| `highmem_p` | highmem_qos | 7 days | 6 | 100 | 24 nodes, ~800GB RAM/node |
+| `highmem_p` | highmem_qos | 7 days | 6 | 100 | 24 nodes, 510GB–1TB RAM/node. Frequently contended — check a buy-in partition too if you have one. |
 | `hugemem_p` | hugemem_qos | 7 days | 4 | 4 | 5 nodes, up to 3TB RAM |
 | `inter_p` | inter_qos | 2 days | 3 | 20 | Interactive only — do not sbatch |
-| `iob_p` | iob_p_qos | 30 days | 10 | — | IOB buy-in; 22 nodes, 128 cores each. User has access via YOURLAB |
+| `iob_p` | iob_p_qos | 30 days | **10** | — | IOB buy-in (access via YOURLAB). **22 nodes, 128 cores each, every node ≥748 GB RAM** (10× ~997 GB, 12× ~748 GB), verified 2026-08-28. **If you have buy-in access, check this before `highmem_p` — see below.** |
 | `scavenge_p` | scavenge_qos | **4 hours** | 25 | — | **Open to all users.** Runs on idle buy-in nodes (including some GPUs). Jobs can be **preempted (killed) without warning** if the owning lab needs their nodes. Good for quick tests; bad for anything you can't restart. |
 
 ### GPU hardware on gpu_p
@@ -251,6 +252,36 @@ Per-user limits come from QOS, not the partition itself. Always check both.
 | L40S | 48 GB | ~1 (rb7) | 4 | Good middle ground |
 | V100S | 32 GB | 1 (a1-24) | 1 | Older; single GPU |
 | P100 | 16 GB | 2 (c5-22/23) | 1 | Oldest; fine for small models |
+
+### Memory-bound work: don't reach for `highmem_p` by reflex
+
+If your lab has **buy-in partition access** (here: `iob_p` via YOURLAB), check it
+before `highmem_p`. Buy-in nodes are often both larger and far less contended,
+because everyone else selects `highmem_p` by name:
+
+| | `iob_p` (buy-in) | `highmem_p` |
+|---|---|---|
+| Nodes | 22 | 24 |
+| RAM/node | **≥748 GB on every node** | 510 GB – 1 TB, varies |
+| Cores/node | **128 on every node** | 32–128 |
+| Concurrent jobs | **10** | 6 |
+| Max wall | **30 days** | 7 days |
+
+Observed 2026-08-28: `iob_p` had **11 nodes fully idle** while `highmem_p` was
+mostly draining/allocated with one usable node.
+
+**Rule: for any job needing >64 GB, query both and submit to the freer one.**
+Never choose a partition from its name alone.
+
+```bash
+sinfo -p iob_p     -o "%P %T %D %C %e"   # %e = free memory
+sinfo -p highmem_p -o "%P %T %D %C %e"
+```
+
+Caveats: buy-in availability swings with the owning group's load, so re-check
+per submission (it is *not* preemptible like `scavenge_p`). Right-size anyway —
+a 750 GB node is not a licence to request all of it. Reserve `hugemem_p` for
+jobs genuinely exceeding ~1 TB.
 
 ### Key scheduling insights
 
@@ -394,7 +425,7 @@ For jobs that will finish in a few minutes to an hour, use `run_in_background` w
 ```bash
 # Set a background timer to check job status in N seconds
 sleep 300 && squeue -j <JOBID> -o "%j %T %M %R" && \
-  tail -5 /scratch/MYID/ms1_cis_regulatory/logs/<jobname>_<JOBID>.out
+  tail -5 /scratch/MYID/<project>/logs/<jobname>_<JOBID>.out
 ```
 
 **When to use:**
